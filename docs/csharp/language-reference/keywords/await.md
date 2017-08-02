@@ -50,7 +50,7 @@ ms.lasthandoff: 03/24/2017
  在下列程式碼中，<xref:System.Net.Http.HttpClient> 方法 <xref:System.Net.Http.HttpClient.GetByteArrayAsync%2A> 會傳回 `Task\<byte[]>`、`getContentsTask`。 這個工作可保證工作完成時，一定會產生實際位元組陣列。 `await` 運算子會套用至 `getContentsTask` 以暫停在 `SumPageSizesAsync` 中執行，直到 `getContentsTask` 完成。 同時，控制權會返回 `SumPageSizesAsync` 的呼叫端。 當 `getContentsTask` 完成之後，`await` 運算式會評估為位元組陣列。  
   
 ```csharp  
-private async Task SumPageSizesAsync()  
+private async Task<byte[]> SumPageSizesAsync()  
 {  
     // To use the HttpClient type in desktop apps, you must include a using directive and add a   
     // reference for the System.Net.Http namespace.  
@@ -58,8 +58,8 @@ private async Task SumPageSizesAsync()
     // . . .  
     Task<byte[]> getContentsTask = client.GetByteArrayAsync(url);  
     byte[] urlContents = await getContentsTask;  
-  
-    // Equivalently, now that you see how it works, you can write the same thing in a single line.  
+    return urlContents;
+    // Equivalently, now that you see how it works, you can write the same thing in a single line.  
     //byte[] urlContents = await client.GetByteArrayAsync(url);  
     // . . .  
 }  
